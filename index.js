@@ -1,4 +1,4 @@
-function triangulate(faces, stride) {
+function triangulate(faces) {
   const isCellsFlatArray = !faces[0]?.length;
   if (isCellsFlatArray) return faces.slice();
 
