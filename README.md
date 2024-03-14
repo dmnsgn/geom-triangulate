@@ -29,18 +29,17 @@ const triangulatedCells = triangulate(faces); // [[0, 1, 2], [0, 2, 3], ...]
 
 ## API
 
-#### `triangulate(faces, [stride]): cells`
+#### `triangulate(faces): cells`
 
 **Parameters**
 
-- faces: `TypedArray|Array` - list of face indices e.g. `new Uint32Array([a, b, c, d, a, b, c, d, ...]) or [[0,1,2,3], [3,2,5,4],...]`
-- stride (optional): number - a stride for flat array faces.
+- faces: `TypedArray | Array | Array<[x, y, z]>` – list of face indices `new Array([a, b, c, d], [a, b, c, d], ...)`
 
-_Note: "stride" assumes data is packed and all polygons are the same size. For arrays of face array, face.length will be used._
+_Note: if faces is a TypedArray (eg. `new Uint32Array([a, b, c, d, a, b, c, d, ...]`) or a flat array of positions (eg. `new Array(a, b, c, d, a, b, c, d, ...)`), we assumes faces are triangles so a copy will be returned._
 
 **Returns**
 
-- cells: `TypedArray|Array` – simplicial complex geometry cells (eg. `new Uint32Array([a, b, c, a, b, c, ...])/new Array(a, b, c, a, b, c, ...)` or `new Array([a, b, c], [a, b, c], ...)`)
+- cells: `Array<[x, y, z]>` – simplicial complex geometry cells (`new Array([a, b, c], [a, b, c], ...)`)
 
 ## License
 

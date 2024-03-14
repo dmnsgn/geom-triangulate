@@ -12,12 +12,9 @@ uniform mat4 uModelMatrix;
 
 in vec3 aPosition;
 
-out vec4 vColor;
 out vec3 vPositionWorld;
 
 void main () {
-  vColor = vec4(1.0, 0.0, 0.0, 1.0);
-
   vPositionWorld = (uModelMatrix * vec4(aPosition, 1.0)).xyz;
 
   gl_Position = uProjectionMatrix * uViewMatrix * vec4(vPositionWorld, 1.0);
@@ -25,7 +22,6 @@ void main () {
 const basicFrag = /* glsl */ `#version 300 es
 precision highp float;
 
-in vec4 vColor;
 in vec3 vPositionWorld;
 out vec4 fragColor;
 
@@ -66,7 +62,26 @@ const geometries = {
     positions: getPolygon(POLYGON_SIDES),
     cells: [Array.from({ length: POLYGON_SIDES }, (_, i) => i)],
   },
-  box: box(),
+  box: {
+    positions: [
+      [-0.5, 0.5, 0.5],
+      [-0.5, -0.5, 0.5],
+      [0.5, -0.5, 0.5],
+      [0.5, 0.5, 0.5],
+      [0.5, 0.5, -0.5],
+      [0.5, -0.5, -0.5],
+      [-0.5, -0.5, -0.5],
+      [-0.5, 0.5, -0.5],
+    ],
+    cells: [
+      [0, 1, 2, 3], // +z
+      [3, 2, 5, 4], // +x
+      [4, 5, 6, 7], // -z
+      [7, 6, 1, 0], // -x
+      [7, 0, 3, 4], // +y
+      [1, 6, 5, 2], // -y
+    ],
+  },
 };
 console.log(geometries);
 
